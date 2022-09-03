@@ -38,10 +38,10 @@ class Ticket(): # classe Ticket
 
     @app.route('/tickets/pesq/<termo>')      # rota para pesquisar ticket que contenha determinado termo
     def pesquisar_ticket(termo):             # método que recebe o termo a ser pesquisado como parâmetro
-        out_tickets = []                     # lista vazia para receber os tickets que contem o termo
-        for ticket in tickets:                                                  # loop em todos os tickets cadstrados
-            if termo in ticket['titulo'] or termo in ticket['descricao']:       # verificando se algum ticket contem o termo no título ou na descrição
-                out_tickets.append(ticket)                                      # adicionando o ticket wncontrado na lista de output
+        out_tickets = []                     # lista vazia para receber os tickets que contem o termo em questão
+        for ticket in tickets:                                                  # loop em todos os tickets cadastrados
+            if termo in ticket['titulo'] or termo in ticket['descricao']:       # verificando se algum ticket contem o termo no título / descrição
+                out_tickets.append(ticket)                                      # adicionando o ticket encontrado na lista de output
         return {'Tickets': out_tickets}      # retornando resultado da pesquisa
         
 
