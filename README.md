@@ -1,2 +1,3 @@
 # error404
-Rep for Impacta project
+
+Rep para o projeto da disciplina Software Product da Faculdade Impacta
