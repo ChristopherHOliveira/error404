@@ -1,3 +1,5 @@
-# error404
+# Error 404
 
-Rep para o projeto da disciplina Software Product da Faculdade Impacta
+Repositório para o projeto da disciplina Software Product da Faculdade Impacta.
+
+Sistema de gerenciamento de Tickets
