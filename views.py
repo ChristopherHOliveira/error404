@@ -1,10 +1,14 @@
-from flask import Flask
+from flask import Blueprint
 import re
 
-app = Flask(__name__)
+views = Blueprint(__name__,'views')
 
 usuarios = []       # lista de objetos 'usuários' (representação do BD):
 tickets = []        # lista de objetos 'tickets' (representação do BD):
+
+@views.route('/')
+def home():
+    return 'Home page'
 
 class Usuario():                                                    # classe Usuário
     def __init__(self, nome, email, username, senha, perfil):       # parametros a serem passados como atributos do usuário
@@ -27,7 +31,7 @@ class Usuario():                                                    # classe Usu
         else:  
             return False
 
-    @app.route('/login/<username>/<senha>')
+    @views.route('/login/<username>/<senha>')
     def valida_login(username, senha):                                   # método que valida login
         for usuario in usuarios:                                         # verificando em cada usuário cadastrado
             if usuario.username == username and usuario.senha == senha:  # se há um respectivo usuário e senha cadastrados
@@ -37,7 +41,7 @@ class Usuario():                                                    # classe Usu
                 return '<h1>Usuário ou senha incorretos</h1>'
                 # permanecer na tela de login e exibir mensagem de erro
 
-    @app.route('/usuarios')
+    @views.route('/usuarios')
     def exibir_usuarios():                          # método que exibe todos os usuários cadastrados
         out_usuarios = []                           # criando lista pra output
         for usuario in usuarios:                    # para cada usuário cadastrado
@@ -58,14 +62,14 @@ class Ticket(): # classe Ticket
     def pesquisar_ticket():
         pass
     
-    @app.route('/tickets')      # rota para exibir todos os tickets cadastrados
+    @views.route('/tickets')      # rota para exibir todos os tickets cadastrados
     def exibir_tickets():
         out_tickets = []
         for ticket in tickets:
             out_tickets.append(ticket.__dict__)
         return {'Tickets': out_tickets}
 
-    @app.route('/tickets/pesq/<termo>')      # rota para pesquisar ticket que contenha determinado termo
+    @views.route('/tickets/pesq/<termo>')      # rota para pesquisar ticket que contenha determinado termo
     def pesquisar_ticket(termo):             # método que recebe o termo a ser pesquisado como parâmetro
         out_tickets = []                     # lista vazia para receber os tickets que contem o termo em questão
         for ticket in tickets:                                                  # loop em todos os tickets cadastrados
@@ -94,6 +98,3 @@ Ticket.cadastrar_ticket('sistema fora do ar', 'loremihvbsdhv', 1)
 # imprimindo os objetos 'tickets' criados, na forma de dicionário:
 # for ticket in tickets:
 #    print(ticket)
-
-if __name__ == "__main__":
-    app.run(debug=True)
